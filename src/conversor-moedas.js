@@ -1,6 +1,7 @@
 import './conversor-moedas.css'
 import { Jumbotron, Button, Form, Col, Spinner } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import 'bootstrap/dist/css/bootstrap.min.css'
 import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
 
 function ConversorMoedas() {
@@ -14,7 +15,7 @@ function ConversorMoedas() {
 							<Form.Control placeholder="0" value={1} required />
 						</Col>
 						<Col sm="3">
-							<Form.Control as="select"></Form.Control>;
+							<Form.Control as="select"></Form.Control>
 						</Col>
 						<Col
 							sm="1"
