@@ -1,6 +1,8 @@
+import { useState } from 'react'
+
 import './conversor-moedas.css'
 import {
-	Jumbotron,
+	Container,
 	Button,
 	Form,
 	Col,
@@ -11,8 +13,25 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
 import ListarMoedas from './listar-moedas'
+import { Jumbotron } from 'react-bootstrap'
 
 function ConversorMoedas() {
+	const [valor, setValor] = useState('1')
+	const [moedaDe, setMoedaDe] = useState('BRL')
+	const [moedaPara, setMoedaPara] = useState('USD')
+
+	function handleValor(event) {
+		setValor(event.target.value.replace(/\D/g, ''))
+	}
+
+	function handleMoedaDe(event) {
+		setMoedaDe(event.target.value.replace(/\D/g, ''))
+	}
+
+	function handleMoedaPara(event) {
+		setMoedaPara(event.target.value)
+	}
+
 	return (
 		<div>
 			<h1>Conversor moedas</h1>
@@ -23,10 +42,18 @@ function ConversorMoedas() {
 				<Form>
 					<Form.Row>
 						<Col sm="3">
-							<Form.Control placeholder="0" value={1} required />
+							<Form.Control
+								placeholder="0"
+								value={valor}
+								onChange={handleValor}
+								required
+							/>
 						</Col>
 						<Col sm="3">
-							<Form.Control as="select">
+							<Form.Control
+								as="select"
+								value={moedaDe}
+								onChange={handleMoedaDe}>
 								<ListarMoedas />
 							</Form.Control>
 						</Col>
@@ -39,7 +66,10 @@ function ConversorMoedas() {
 							<FontAwesomeIcon icon={faAngleDoubleRight} />
 						</Col>
 						<Col sm="3">
-							<Form.Control as="select">
+							<Form.Control
+								as="select"
+								value={moedaPara}
+								onChange={handleMoedaPara}>
 								<ListarMoedas />
 							</Form.Control>
 						</Col>
