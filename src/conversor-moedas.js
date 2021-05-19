@@ -19,6 +19,8 @@ function ConversorMoedas() {
 	const [valor, setValor] = useState('1')
 	const [moedaDe, setMoedaDe] = useState('BRL')
 	const [moedaPara, setMoedaPara] = useState('USD')
+	const [exibirSpinner, setExibirSpinner] = useState(false)
+	const [formValidado, setFormValidado] = useState(false)
 
 	function handleValor(event) {
 		setValor(event.target.value.replace(/\D/g, ''))
@@ -32,6 +34,14 @@ function ConversorMoedas() {
 		setMoedaPara(event.target.value)
 	}
 
+	function converter(event) {
+		event.preventDefault()
+		setFormValidado(true)
+		if (event.currentTarget.checkValidity() === true) {
+			//TODO implementar chamada ao fixer io
+		}
+	}
+
 	return (
 		<div>
 			<h1>Conversor moedas</h1>
@@ -39,7 +49,7 @@ function ConversorMoedas() {
 				Erro obtendo dados de conversão, tente novavemte.
 			</Alert>
 			<Jumbotron>
-				<Form>
+				<Form onSubmit={converter} noValidate validated={formValidado}>
 					<Form.Row>
 						<Col sm="3">
 							<Form.Control
@@ -75,8 +85,12 @@ function ConversorMoedas() {
 						</Col>
 						<Col sm="2">
 							<Button variant="success" type="submit">
-								<Spinner animation="border" size="sm" />
-								Converter
+								<span className={exibirSpinner ? null : 'hidden'}>
+									<Spinner animation="border" size="sm" />
+								</span>
+								<span className={exibirSpinner ? 'hidden' : null}>
+									Converter
+								</span>
 							</Button>
 						</Col>
 					</Form.Row>
