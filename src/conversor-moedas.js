@@ -1,15 +1,7 @@
 import { useState } from 'react'
 
 import './conversor-moedas.css'
-import {
-	Container,
-	Button,
-	Form,
-	Col,
-	Spinner,
-	Alert,
-	Modal,
-} from 'react-bootstrap'
+import { Button, Form, Col, Spinner, Alert, Modal } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
 import ListarMoedas from './listar-moedas'
@@ -21,6 +13,8 @@ function ConversorMoedas() {
 	const [moedaPara, setMoedaPara] = useState('USD')
 	const [exibirSpinner, setExibirSpinner] = useState(false)
 	const [formValidado, setFormValidado] = useState(false)
+	const [exibirModal, setExibirModal] = useState(false)
+	const [resultadoConversao, setResultadoConversao] = useState('')
 
 	function handleValor(event) {
 		setValor(event.target.value.replace(/\D/g, ''))
@@ -33,12 +27,20 @@ function ConversorMoedas() {
 	function handleMoedaPara(event) {
 		setMoedaPara(event.target.value)
 	}
+	function handleFecharModal(event) {
+		setValor('1')
+		setMoedaDe('BRL')
+		setMoedaPara('USD')
+		setFormValidado(false)
+		setExibirModal(false)
+	}
 
 	function converter(event) {
 		event.preventDefault()
 		setFormValidado(true)
 		if (event.currentTarget.checkValidity() === true) {
 			//TODO implementar chamada ao fixer io
+			setExibirModal(true)
 		}
 	}
 
@@ -96,14 +98,16 @@ function ConversorMoedas() {
 					</Form.Row>
 				</Form>
 
-				<Modal show={false}>
+				<Modal show={exibirModal} onHide={handleFecharModal}>
 					<Modal.Header closeButton>
 						<Modal.Title>Conversão</Modal.Title>
 					</Modal.Header>
 
-					<Modal.Body>Resultado da conversão aqui...</Modal.Body>
+					<Modal.Body>{resultadoConversao}</Modal.Body>
 					<Modal.Footer>
-						<Button variant="success">Nova conversão</Button>
+						<Button variant="success" onClick={handleFecharModal}>
+							Nova conversão
+						</Button>
 					</Modal.Footer>
 				</Modal>
 			</Jumbotron>
