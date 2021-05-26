@@ -1,11 +1,18 @@
-import { useState } from 'react'
-
+import React, { useState } from 'react'
 import './conversor-moedas.css'
-import { Button, Form, Col, Spinner, Alert, Modal } from 'react-bootstrap'
+import {
+	Jumbotron,
+	Button,
+	Form,
+	Col,
+	Spinner,
+	Alert,
+	Modal,
+} from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
 import ListarMoedas from './listar-moedas'
-import { Jumbotron } from 'react-bootstrap'
+import axios from 'axios'
 
 function ConversorMoedas() {
 	const [valor, setValor] = useState('1')
@@ -40,7 +47,6 @@ function ConversorMoedas() {
 		setFormValidado(true)
 		if (event.currentTarget.checkValidity() === true) {
 			//TODO implementar chamada ao fixer io
-			setExibirModal(true)
 		}
 	}
 
@@ -50,7 +56,7 @@ function ConversorMoedas() {
 			<Alert variant="danger" show={false}>
 				Erro obtendo dados de conversão, tente novavemte.
 			</Alert>
-			<Jumbotron>
+			<Jumbotron fluid>
 				<Form onSubmit={converter} noValidate validated={formValidado}>
 					<Form.Row>
 						<Col sm="3">
