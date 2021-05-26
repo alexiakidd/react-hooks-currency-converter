@@ -25,7 +25,7 @@ function ConversorMoedas() {
 	const [resultadoConversao, setResultadoConversao] = useState('')
 
 	const FIXER_URL =
-		'http://data.fixer.io/api/latest?access_key=67647a5a6b285c89ef76ca6f3d62848'
+		'http://data.fixer.io/api/latest?access_key=67647a5a6b285c89ef76ca6f3d62848b'
 
 	function handleValor(event) {
 		setValor(event.target.value.replace(/\D/g, ''))
@@ -125,7 +125,10 @@ function ConversorMoedas() {
 							</Form.Control>
 						</Col>
 						<Col sm="2">
-							<Button variant="success" type="submit">
+							<Button
+								variant="success"
+								type="submit"
+								data-testid="btn-converter">
 								<span className={exibirSpinner ? null : 'hidden'}>
 									<Spinner animation="border" size="sm" />
 								</span>
@@ -137,7 +140,10 @@ function ConversorMoedas() {
 					</Form.Row>
 				</Form>
 
-				<Modal show={exibirModal} onHide={handleFecharModal}>
+				<Modal
+					show={exibirModal}
+					onHide={handleFecharModal}
+					data-testid="modal">
 					<Modal.Header closeButton>
 						<Modal.Title>Conversão</Modal.Title>
 					</Modal.Header>
